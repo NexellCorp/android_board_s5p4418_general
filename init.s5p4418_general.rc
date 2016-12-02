@@ -108,7 +108,7 @@ on boot
     setprop ro.radio.noril yes
 
     # for cts android.os.cts.UsbDebuggingTest testUsbDebugging
-    setprop ro.adb.secure 1
+    setprop ro.adb.secure 0
 
     # Reduce reserved lowmem from ~48MB to ~12MB
     #write /proc/sys/vm/lowmem_reserve_ratio "128 128"
@@ -126,9 +126,6 @@ on boot
     # Set default media player to awesome player
     setprop media.stagefright.use-awesome 1
 
-    # Set video player to nexell player
-    setprop persist.sys.media.use-nexell true    
-    
 on fs
     mount_all /fstab.s5p4418_general
     setprop ro.crypto.fuse_sdcard true
@@ -240,14 +237,6 @@ service iprenew_p2p /system/bin/dhcpcd -n
 service iprenew_eth0 /system/bin/dhcpcd -n
     class main
     disabled
-    oneshot
-
-service defer /start_deferred.sh
-    disabled
-    oneshot
-
-service mon_snd /mon_snd.sh
-    class main
     oneshot
 
 service adjlowmem /adj_lowmem.sh

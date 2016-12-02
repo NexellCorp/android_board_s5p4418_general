@@ -16,14 +16,14 @@ def FullOTA_InstallEnd(info):
     except KeyError:
         print "no bootloader in target_files, skipping install"
     else:
-        WriteBootloader(info, bootloader_img, "spirom")
+        WriteBootloader(info, bootloader_img, "emmc")
 
     try:
         secondboot_img = info.input_zip.read("RADIO/2ndbootloader")
     except KeyError:
         print "no 2ndbootloader in target_files, skipping install"
     else:
-        WriteSecondBootloader(info, secondboot_img, "spirom")
+        WriteSecondBootloader(info, secondboot_img, "emmc")
 
 
 def IncrementalOTA_VerifyEnd(info):

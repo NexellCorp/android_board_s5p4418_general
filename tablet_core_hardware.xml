@@ -26,6 +26,8 @@
     <feature name="android.hardware.audio.output" />
     <feature name="android.hardware.location" />
     <feature name="android.hardware.location.network" />
+    <feature name="android.hardware.sensor.compass" />
+    <feature name="android.hardware.sensor.accelerometer" />
     <feature name="android.hardware.touchscreen" />
     <feature name="android.hardware.touchscreen.multitouch" />
     <feature name="android.hardware.touchscreen.multitouch.distinct" />
@@ -55,6 +57,14 @@
     <!-- devices with a front facing camera must include
          android.hardware.camera.front.xml -->
     <!-- devices with WiFi must also include android.hardware.wifi.xml -->
+    <!-- devices with an ambient light sensor must also include
+         android.hardware.sensor.light.xml -->
+    <!-- devices with a proximity sensor must also include
+         android.hardware.sensor.proximity.xml -->
+    <!-- devices with a barometer must also include
+         android.hardware.sensor.barometer.xml -->
+    <!-- devices with a gyroscope must also include
+         android.hardware.sensor.gyroscope.xml -->
     <!-- GSM phones must also include android.hardware.telephony.gsm.xml -->
     <!-- CDMA phones must also include android.hardware.telephony.cdma.xml -->
 </permissions>

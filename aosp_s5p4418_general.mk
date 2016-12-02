@@ -16,6 +16,9 @@
 PRODUCT_PACKAGES += \
     Launcher3
 
+PRODUCT_PACKAGES += \
+    sensors.s5p4418_general
+
 PRODUCT_PROPERTY_OVERRIDES := \
         net.dns1=8.8.8.8 \
         net.dns2=8.8.4.4
