@@ -11,8 +11,10 @@
 #define DECODER_TW9900      0
 #define AHD_NVP6114A        1
 #define SERDES_DS90UB914Q   2
+#define DECOdER_TW9992	    3
 
-#define BACK_CAMERA AHD_NVP6114A
+#define BACK_CAMERA DECODER_TW9900
+#define FRONT_CAMERA DECODER_TW9992
 
 #if (BACK_CAMERA == DECODER_TW9900)
 #include <TW9900.h>
@@ -22,13 +24,19 @@
 #include <DS90UB914Q.h>
 #endif
 
-//#include <TW9992.h>
+#if (FRONT_CAMERA == DECODER_TW9992)
+#include <TW9992.h>
+#endif
 
 namespace android {
 
 extern "C" {
 int get_board_number_of_cameras() {
-    return 1;
+	#if (FRONT_CAMERA == DECODER_TW9992)
+		return 2;
+	#else
+		return 1;
+	#endif
 }
 }
 
@@ -40,8 +48,8 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
 
     if (id == 0) {
         if (!backSensor) {
-#if (BACK_CAMERA == DECODER_TW9900)				
-            backSensor = new TW9900(nxp_v4l2_sensor0);
+#if (BACK_CAMERA == DECODER_TW9900)
+	    backSensor = new TW9900(nxp_v4l2_sensor0);
 #elif (BACK_CAMERA == AHD_NVP6114A)
             backSensor = new NVP6114A(nxp_v4l2_sensor0);
 #elif (BACK_CAMERA == SERDES_DS90UB914Q)
@@ -52,7 +60,7 @@ NXCameraBoardSensor *get_board_camera_sensor(int id) {
         }
         sensor = backSensor;
     } else if (id == 1) {
-#if 0
+#if (FRONT_CAMERA == DECODER_TW9992)
         if (!frontSensor) {
             frontSensor = new TW9992(nxp_v4l2_sensor1);
             if (!frontSensor)
@@ -129,7 +137,11 @@ bool get_board_camera_is_mipi(uint32_t v4l2_sensorId)
     case nxp_v4l2_sensor0:
         return false;
     case nxp_v4l2_sensor1:
-        return false;
+#if (FRONT_CAMERA == DECODER_TW9992)
+        return true;
+#else
+	return false;
+#endif
     default:
         return false;
     }
